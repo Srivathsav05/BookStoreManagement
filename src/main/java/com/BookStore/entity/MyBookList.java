@@ -12,7 +12,7 @@ public class MyBookList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
     private String name;
     private String author;
     private String price;
@@ -21,14 +21,15 @@ public class MyBookList {
         super();
     }
 
-    public MyBookList(String name, String author, String price) {
+    public MyBookList(long id, String name, String author, String price) {
         super();
+        this.id = id;
         this.name = name;
         this.author = author;
         this.price = price;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

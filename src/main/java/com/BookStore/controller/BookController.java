@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.BookStore.entity.Book;
@@ -51,20 +54,20 @@ public class BookController {
         return new ModelAndView("myBooks", "book", list);
     }
 
-//    @GetMapping("/mylist/{id}")
-//    public String getMyList(@PathVariable("id") int id) {
-//        Book b = service.getBookById(id);
-//        MyBookList mb = new MyBookList(b.getId(), b.getName(), b.getAuthor(), b.getPrice());
-//        mybookservice.saveMyBooks(mb);
-//        return "redirect:/my_books";
-//    }
     @GetMapping("/mylist/{id}")
     public String getMyList(@PathVariable("id") int id) {
         Book b = service.getBookById(id);
-        MyBookList mb = new MyBookList(b.getName(), b.getAuthor(), b.getPrice());
+        MyBookList mb = new MyBookList(b.getId(), b.getName(), b.getAuthor(), b.getPrice());
         mybookservice.saveMyBooks(mb);
         return "redirect:/my_books";
     }
+//    @GetMapping("/mylist/{id}")
+//    public String getMyList(@PathVariable("id") int id) {
+//        Book b = service.getBookById(id);
+//        MyBookList mb = new MyBookList(b.getName(), b.getAuthor(), b.getPrice());
+//        mybookservice.saveMyBooks(mb);
+//        return "redirect:/my_books";
+//    }
 
 
     @GetMapping("/editBook/{id}")
@@ -73,7 +76,7 @@ public class BookController {
         return new ModelAndView("bookEdit", "book", b);  // Updated view name here
     }
     
-	@RequestMapping("/deleteBook/{id}")
+	@GetMapping("/deleteBook/{id}")
 	public String deleteBook(@PathVariable("id")int id) {
 		service.deleteById(id);
 		return "redirect:/available_books";
